@@ -9,4 +9,18 @@ html,
 body,
 #root {
   height: 100%;
+  background: #f6f6f6;
+}
+
+.bgColorFFF{
+  background-color: #fff;;
+}
+
+.container{
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.tx-c{
+  text-align: center;
 }
