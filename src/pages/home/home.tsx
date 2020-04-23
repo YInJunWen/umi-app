@@ -1,21 +1,26 @@
-import React, { useState } from 'react';
-import { Row, Skeleton, Col, List, Avatar, Switch, Typography } from 'antd';
-import { MessageOutlined, LikeOutlined, StarOutlined } from '@ant-design/icons';
+import React, { FC, useState } from 'react';
+import {
+  Row,
+  Skeleton,
+  Col,
+  List,
+  Avatar,
+  Switch,
+  Typography,
+  Space,
+} from 'antd';
+import { LikeOutlined, FieldTimeOutlined } from '@ant-design/icons';
 
 import '@/css/home.less';
 
-const { Paragraph } = Typography;
+const { Paragraph, Title } = Typography;
 
 const listData = [];
 for (let i = 0; i < 50; i++) {
   listData.push({
     href: 'http://ant.design',
-    title: `我为什么这么帅 ${i}`,
-    avatar: '',
-    description:
-      'Ant Design, a design language for background applications, is refined by Ant UED Team.',
-    content:
-      'We supply a series oWe supply a series oWe supply a series of design principles, practicalWe supply a series of design principles, practicalWe supply a series of design principles, practicalWe supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure), to help people create their product prototypes beautifully and efficiently.',
+    title: `${i} 如何从「穷人思维」过渡到「富人思维」？`,
+    content: `偶然看到了有关的问题，感觉父母一辈人，包括身边很多人，包括自己在一些方面都有“穷人思维”的一面……如何改变？ （我觉得这不是说有钱了自然就会改变的）`,
   });
 }
 
@@ -26,99 +31,80 @@ const IconText = ({ icon, text }) => (
   </span>
 );
 
-class Home extends React.Component {
-  state = {
-    loading: true,
-  };
+const Home: FC = () => {
+  const [loading, setLoading] = useState(true);
 
-  _timer = setTimeout(_timer => {
-    this.setState({
-      loading: false,
-    });
+  const _timer = setTimeout(_timer => {
+    setLoading(false);
     clearTimeout(_timer);
   }, 1000);
 
-  render() {
-    const { loading } = this.state;
+  const handleItemClick = item => {
+    console.log(item);
+  };
 
-    return (
-      <div className="container">
-        <div className="home">
-          <Row justify="space-around">
-            <Col span={24} className="bgColorFFF">
-              <List
-                itemLayout="vertical"
-                size="large"
-                pagination={{
-                  onChange: page => {
-                    console.log(page);
-                  },
-                  pageSize: 2,
-                }}
-                dataSource={listData}
-                renderItem={item => (
-                  <List.Item
-                    key={item.title}
-                    actions={
-                      !loading && [
-                        <IconText
-                          icon={StarOutlined}
-                          text="156"
-                          key="list-vertical-star-o"
-                        />,
-                        <IconText
-                          icon={LikeOutlined}
-                          text="156"
-                          key="list-vertical-like-o"
-                        />,
-                        <IconText
-                          icon={MessageOutlined}
-                          text="2"
-                          key="list-vertical-message"
-                        />,
-                      ]
-                    }
-                    // extra={
-                    //   !loading && (
-                    //     <img
-                    //       width={272}
-                    //       alt="logo"
-                    //       src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png"
-                    //     />
-                    //   )
-                    // }
-                  >
-                    <Skeleton loading={loading} active avatar>
-                      <List.Item.Meta
-                        avatar={<Avatar src={item.avatar} />}
-                        title={<a href={item.href}>{item.title}</a>}
-                        // description={item.description}
-                      />
-                      <Row justify="space-around">
-                        <Col span={8}>
-                          <div className="contentImg">
-                            <img
-                              src="https://www.google.com/logos/doodles/2020/thank-you-public-transportation-workers-6753651837108759-law.gif"
-                              alt=""
-                            />
-                          </div>
-                        </Col>
-                        <Col span={15}>
-                          <Paragraph ellipsis={{ rows: 6, expandable: false }}>
-                            {item.content}
-                          </Paragraph>
-                        </Col>
-                      </Row>
-                    </Skeleton>
-                  </List.Item>
-                )}
-              />
-            </Col>
-          </Row>
-        </div>
+  return (
+    <div className="container">
+      <div className="home">
+        <Row justify="space-around">
+          <Col span={24} className="bgColorFFF">
+            <List
+              itemLayout="vertical"
+              size="large"
+              pagination={{
+                onChange: page => {
+                  console.log(page);
+                },
+                pageSize: 8,
+              }}
+              dataSource={listData}
+              renderItem={item => (
+                <List.Item key={item.title}>
+                  <Skeleton loading={loading} active avatar>
+                    <Row
+                      justify="space-around"
+                      onClick={() => {
+                        handleItemClick(item);
+                      }}
+                    >
+                      <Col span={8}>
+                        <div className="contentImg">
+                          <img
+                            src="https://www.google.com/logos/doodles/2020/thank-you-public-transportation-workers-6753651837108759-law.gif"
+                            alt=""
+                          />
+                        </div>
+                      </Col>
+                      <Col span={15}>
+                        <Row>
+                          <Title level={4}>{item.title}</Title>
+                        </Row>
+                        <Paragraph ellipsis={{ rows: 2, expandable: false }}>
+                          {item.content}
+                        </Paragraph>
+                        <Row justify="space-between">
+                          <IconText
+                            icon={LikeOutlined}
+                            text="156"
+                            key="list-vertical-like-o"
+                          />
+                          <IconText
+                            icon={FieldTimeOutlined}
+                            text="2020-04-20"
+                            key="list-vertical-message"
+                          />
+                        </Row>
+                      </Col>
+                    </Row>
+                  </Skeleton>
+                </List.Item>
+              )}
+            />
+          </Col>
+        </Row>
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
 
 export default Home;

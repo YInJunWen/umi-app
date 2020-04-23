@@ -13,6 +13,6 @@ export default defineConfig({
       .filename('Yin.bundle.js');
   },
   // 这里的 base 和 publicPath 配置的是你的 github 项目名字。
-  base: '/umi-app/',
-  publicPath: '/umi-app/',
+  // base: '/umi-app/',
+  // publicPath: '/umi-app/',
 });
