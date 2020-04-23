@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Row, Skeleton, Col, List, Avatar, Switch,Typography } from "antd";
+import { Row, Skeleton, Col, List, Avatar, Switch, Typography } from 'antd';
 import { MessageOutlined, LikeOutlined, StarOutlined } from '@ant-design/icons';
 
 import '@/css/home.less';
@@ -28,13 +28,13 @@ const IconText = ({ icon, text }) => (
 
 class Home extends React.Component {
   state = {
-    loading: true
+    loading: true,
   };
 
-  _timer = setTimeout((_timer) => {
+  _timer = setTimeout(_timer => {
     this.setState({
-      loading: false
-    })
+      loading: false,
+    });
     clearTimeout(_timer);
   }, 1000);
 
@@ -45,7 +45,7 @@ class Home extends React.Component {
       <div className="container">
         <div className="home">
           <Row justify="space-around">
-            <Col span={15} className="bgColorFFF">
+            <Col span={24} className="bgColorFFF">
               <List
                 itemLayout="vertical"
                 size="large"
@@ -61,31 +61,46 @@ class Home extends React.Component {
                     key={item.title}
                     actions={
                       !loading && [
-                        <IconText icon={StarOutlined} text="156" key="list-vertical-star-o" />,
-                        <IconText icon={LikeOutlined} text="156" key="list-vertical-like-o" />,
-                        <IconText icon={MessageOutlined} text="2" key="list-vertical-message" />,
+                        <IconText
+                          icon={StarOutlined}
+                          text="156"
+                          key="list-vertical-star-o"
+                        />,
+                        <IconText
+                          icon={LikeOutlined}
+                          text="156"
+                          key="list-vertical-like-o"
+                        />,
+                        <IconText
+                          icon={MessageOutlined}
+                          text="2"
+                          key="list-vertical-message"
+                        />,
                       ]
                     }
-                  // extra={
-                  //   !loading && (
-                  //     <img
-                  //       width={272}
-                  //       alt="logo"
-                  //       src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png"
-                  //     />
-                  //   )
-                  // }
+                    // extra={
+                    //   !loading && (
+                    //     <img
+                    //       width={272}
+                    //       alt="logo"
+                    //       src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png"
+                    //     />
+                    //   )
+                    // }
                   >
                     <Skeleton loading={loading} active avatar>
                       <List.Item.Meta
                         avatar={<Avatar src={item.avatar} />}
                         title={<a href={item.href}>{item.title}</a>}
-                      // description={item.description}
+                        // description={item.description}
                       />
                       <Row justify="space-around">
                         <Col span={8}>
                           <div className="contentImg">
-                            <img src="https://www.google.com/logos/doodles/2020/thank-you-public-transportation-workers-6753651837108759-law.gif" alt="" />
+                            <img
+                              src="https://www.google.com/logos/doodles/2020/thank-you-public-transportation-workers-6753651837108759-law.gif"
+                              alt=""
+                            />
                           </div>
                         </Col>
                         <Col span={15}>
@@ -99,13 +114,9 @@ class Home extends React.Component {
                 )}
               />
             </Col>
-            <Col span={8} className="bgColorFFF">
-              123
-            </Col>
           </Row>
         </div>
       </div>
-
     );
   }
 }
